@@ -25,6 +25,6 @@
             "email": "info@taneda.dev"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "version": "1.0.0"
 }

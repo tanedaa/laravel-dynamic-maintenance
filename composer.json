@@ -3,6 +3,10 @@
     "description": "A Laravel package to enable maintenance mode for specific named routes",
     "type": "library",
     "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^10.0|^11.0"
+    },
     "autoload": {
         "psr-4": {
             "Tanedaa\\LaravelDynamicMaintenance\\": "src/"
@@ -22,5 +26,5 @@
         }
     ],
     "minimum-stability": "dev",
-    "version": "0.1.0"
+    "version": "1.0.0"
 }

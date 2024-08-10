@@ -6,7 +6,7 @@ A simple package to allow enabling maintenance mode for specific named routes.
 
 ## Installation
 
-Require this package with composer
+Require this package with composer. Works for Laravel 10 and above. Not tested for other versions.
 
 ```shell
 composer require tanedaa/laravel-dynamic-maintenance

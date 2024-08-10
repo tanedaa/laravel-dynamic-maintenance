@@ -1,0 +1,26 @@
+{
+    "name": "tanedaa/laravel-dynamic-maintenance",
+    "description": "A Laravel package to enable maintenance mode for specific named routes",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Tanedaa\\LaravelDynamicMaintenance\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tanedaa\\LaravelDynamicMaintenance\\ServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Taneda",
+            "email": "info@taneda.dev"
+        }
+    ],
+    "minimum-stability": "dev",
+    "version": "0.1.0"
+}

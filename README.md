@@ -37,7 +37,7 @@ php artisan up:routes {routes} | all
 ```
 ## Configuration
 
-Optionally, you can change the maintenance mode Title, Message and HTTP Code for the dynamic maintenance routes by adding the following variables to your .env file:
+Optionally, you can change the maintenance mode Title, Message and HTTP Code in the custom view for the dynamic maintenance routes by adding the following variables to your .env file:
 
 ```env
 MAINTENANCE_TITLE = 'Service Unavailable'

@@ -16,6 +16,7 @@ class DisableMaintenanceForRoutes extends Command
 
         if ($disableRoutes === ['all']) {
             Cache::forget('maintenance_routes');
+            Cache::forget('maintenance_bypass_secret');
             $this->info('Maintenance mode disabled for all routes');
             return;
         }

@@ -5,6 +5,7 @@ namespace Tanedaa\LaravelDynamicMaintenance\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Str;
 
 class CheckForSpecificRoutesMaintenanceMode
 {
@@ -18,18 +19,29 @@ class CheckForSpecificRoutesMaintenanceMode
             return redirect($request->url());
         }
 
-        if (in_array($request->route()->getName(), $maintenanceRoutes)) {
-            if ($bypassSecret && $request->cookie('maintenance_bypass') === $bypassSecret) {
-                return $next($request);
-            }
+        $currentRouteName = $request->route()->getName();
+        $currentRoutePath = ltrim($request->path(), '/');
 
-            return response()->view('errors.my-503', [
-                'title' => config('maintenance.title'),
-                'message' => config('maintenance.message'),
-                'code' => config('maintenance.code'),
-            ], 503);
+        foreach ($maintenanceRoutes as $route) {
+            if ($this->matchesRoute($route, $currentRouteName, $currentRoutePath)) {
+                if ($bypassSecret && $request->cookie('maintenance_bypass') === $bypassSecret) {
+                    return $next($request);
+                }
+
+                return response()->view('errors.my-503', [
+                    'title' => config('maintenance.title'),
+                    'message' => config('maintenance.message'),
+                    'code' => config('maintenance.code'),
+                ], 503);
+            }
         }
 
         return $next($request);
+    }
+
+    private function matchesRoute($pattern, $routeName, $routePath)
+    {
+        $normalizedPattern = ltrim($pattern, '/');
+        return Str::is($normalizedPattern, $routeName) || Str::is($normalizedPattern, $routePath);
     }
 }

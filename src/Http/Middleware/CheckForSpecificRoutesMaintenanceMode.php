@@ -4,6 +4,7 @@ namespace Tanedaa\LaravelDynamicMaintenance\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
 
 class CheckForSpecificRoutesMaintenanceMode
 {
@@ -12,13 +13,13 @@ class CheckForSpecificRoutesMaintenanceMode
         $maintenanceRoutes = Cache::get('maintenance_routes', []);
         $bypassSecret = Cache::get('maintenance_bypass_secret');
 
-        if ($bypassSecret && $request->is("*/{$bypassSecret}")) {
+        if ($bypassSecret && $request->query('secret') === $bypassSecret) {
             Cookie::queue('maintenance_bypass', $bypassSecret, 120);
             return redirect($request->url());
         }
 
         if (in_array($request->route()->getName(), $maintenanceRoutes)) {
-            if ($request->cookie('maintenance_bypass') === $bypassSecret) {
+            if ($bypassSecret && $request->cookie('maintenance_bypass') === $bypassSecret) {
                 return $next($request);
             }
 

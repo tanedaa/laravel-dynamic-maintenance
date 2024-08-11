@@ -29,12 +29,20 @@ Route::middleware('maintenance')->group(function () {
 ```
 ## Usage
 
-Enable or disable maintenance mode for specific named routes by providing a comma-separated list of routes to the following commands:
+Enable or disable maintenance mode for specific named routes by providing a comma-separated list of routes to the following commands.
+Opitionally, you can provide a secret key to bypass maintenance mode.
 
 ```shell
-php artisan down:routes {routes}
+php artisan down:routes {routes} {--secret}
 php artisan up:routes {routes} | all
 ```
+
+To bypass maintenance mode, add a query parameter `secret` with the secret key you provided when enabling maintenance mode.
+
+```shell
+http://example.com/home?secret=mySecretKey
+```
+
 ## Configuration
 
 Optionally, you can change the maintenance mode Title, Message and HTTP Code in the custom view for the dynamic maintenance routes by adding the following variables to your .env file:

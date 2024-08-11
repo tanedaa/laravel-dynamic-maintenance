@@ -27,6 +27,11 @@ class DisableMaintenanceForRoutes extends Command
 
         Cache::forever('maintenance_routes', $updatedRoutes);
 
+        if (empty($updatedRoutes)) {
+            Cache::forget('maintenance_bypass_secret');
+            $this->info('Bypass secret removed as no routes are in maintenance mode.');
+        }
+
         $this->info('Maintenance mode disabled for routes: ' . implode(', ', $disableRoutes));
     }
 }
